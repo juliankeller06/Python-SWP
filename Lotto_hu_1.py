@@ -15,4 +15,7 @@ def ziehe_lottozahlen():
     return gezogene_zahlen
 
 lottozahlen = ziehe_lottozahlen()
+
+c = range(10)
+
 print("Lottozahlen:", lottozahlen)
