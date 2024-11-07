@@ -5,12 +5,14 @@ SUITS = ['Herz', 'Karo', 'Pik', 'Kreuz']
 RANKS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'Bube', 'Dame', 'König', 'Ass']
 deck = [(rank, suit) for rank in RANKS for suit in SUITS]
 
+
 # Karten austeilen
 def deal_cards(deck):
     random.shuffle(deck)
     player_hand = [deck[i] for i in range(2)]
     community_cards = [deck[i + 2] for i in range(3)]
     return player_hand, community_cards
+
 
 # Ränge der Karten zählen
 def count_ranks(cards):
@@ -23,6 +25,7 @@ def count_ranks(cards):
             rank_counts[rank] = 1
     return rank_counts
 
+
 # Farben (Suits) der Karten zählen
 def count_suits(cards):
     suit_counts = {}
@@ -33,6 +36,7 @@ def count_suits(cards):
         else:
             suit_counts[suit] = 1
     return suit_counts
+
 
 # Überprüfen, ob die Karten eine Straße (Straight) bilden
 def is_straight(cards):
@@ -50,21 +54,25 @@ def is_straight(cards):
             return False
     return True
 
+
 # Flush erkennen
 def is_flush(cards):
     suit_counts = count_suits(cards)
     # Wenn eine Farbe 5-mal vorkommt, handelt es sich um einen Flush
     return 5 in suit_counts.values()
 
+
 # Straight Flush erkennen
 def is_straight_flush(cards):
     return is_flush(cards) and is_straight(cards)
+
 
 # Royal Flush erkennen
 def is_royal_flush(cards):
     values = [card[0] for card in cards]
     royal_values = [10, 'Bube', 'Dame', 'König', 'Ass']
     return is_flush(cards) and sorted(values) == sorted(royal_values)
+
 
 # Handkombinationen auswerten
 def evaluate_hand(player_hand, community_cards):
@@ -103,10 +111,15 @@ def evaluate_hand(player_hand, community_cards):
         highest_card = max(all_cards, key=lambda card: RANKS.index(card[0]))
         return f"High Card: {highest_card[0]}, {highest_card[1]}"
 
-# Karten austeilen und Handkombination ermitteln
-player_hand, community_cards = deal_cards(deck)
-print(f"Spielerhand: {player_hand}")
-print(f"Gemeinschaftskarten: {community_cards}")
 
-hand_combination = evaluate_hand(player_hand, community_cards)
-print(f"Kombination: {hand_combination}")
+def main():
+    # Karten austeilen und Handkombination ermitteln
+    player_hand, community_cards = deal_cards(deck)
+    print(f"Spielerhand: {player_hand}")
+    print(f"Gemeinschaftskarten: {community_cards}")
+
+    hand_combination = evaluate_hand(player_hand, community_cards)
+    print(f"Kombination: {hand_combination}")
+
+if __name__ == '__main__':
+    main()
